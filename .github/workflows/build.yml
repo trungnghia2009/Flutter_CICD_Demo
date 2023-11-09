@@ -42,15 +42,11 @@ jobs:
           channel: 'stable'
           cache: true
       - name: ⚠️ℹ️ Run Dart analysis for app package
-        with:
-          working-directory: "${{github.workspace}}/app/"
-        run: |
-          flutter analyze --fatal-warnings
+        working-directory: "${{github.workspace}}/app/"
+        run: flutter analyze --fatal-warnings
       - name: ⚠️ℹ️ Run Dart analysis for data package
-        with:
-          working-directory: "${{github.workspace}}/design_system/"
-        run: |
-          flutter analyze --fatal-warnings
+        working-directory: "${{github.workspace}}/design_system/"
+        run: flutter analyze --fatal-warnings
 
 #      - name: ⚙️ Setup Melos
 #        uses: bluefireteam/melos-action@v2
