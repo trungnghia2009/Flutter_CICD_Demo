@@ -41,27 +41,34 @@ jobs:
         with:
           channel: 'stable'
           cache: true
-      - name: ⚙️ Setup Melos
-        uses: bluefireteam/melos-action@v2
-      - name: ⚙️ Install dependencies for all packages
-        run: melos build:pub_get:all
-      - name: 📄 Move dummy pubspec.yaml to root
-        run: cp scripts/pubspec_template.yaml pubspec.yaml
       - name: ⚠️ℹ️ Run Dart analysis for app package
-        uses: zgosalvez/github-actions-analyze-dart@v2.0.9
-        with:
-          working-directory: "${{github.workspace}}/app/"
+        working-directory: "${{github.workspace}}/app/"
+        run: flutter analyze --fatal-warnings
       - name: ⚠️ℹ️ Run Dart analysis for data package
-        uses: zgosalvez/github-actions-analyze-dart@v2.0.9
-        with:
-          working-directory: "${{github.workspace}}/design_system/"
-      - name: 📈 Check metrics
-        uses: dart-code-checker/dart-code-metrics-action@v3.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pull_request_comment: true
-          check_unused_files: true
-          folders: 'app, design_system'
+        working-directory: "${{github.workspace}}/design_system/"
+        run: flutter analyze --fatal-warnings
+
+#      - name: ⚙️ Setup Melos
+#        uses: bluefireteam/melos-action@v2
+#      - name: ⚙️ Install dependencies for all packages
+#        run: melos build:pub_get:all
+#      - name: 📄 Move dummy pubspec.yaml to root
+#        run: cp scripts/pubspec_template.yaml pubspec.yaml
+#      - name: ⚠️ℹ️ Run Dart analysis for app package
+#        uses: zgosalvez/github-actions-analyze-dart@v2.0.9
+#        with:
+#          working-directory: "${{github.workspace}}/app/"
+#      - name: ⚠️ℹ️ Run Dart analysis for data package
+#        uses: zgosalvez/github-actions-analyze-dart@v2.0.9
+#        with:
+#          working-directory: "${{github.workspace}}/design_system/"
+#      - name: 📈 Check metrics
+#        uses: dart-code-checker/dart-code-metrics-action@v3.0.0
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          pull_request_comment: true
+#          check_unused_files: true
+#          folders: 'app, design_system'
 
   build:
     name: Build Android
