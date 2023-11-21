@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '🏠 Welcome to Flutter CI/CD demo page testing3!',
+              '🏠 Welcome to Flutter CI/CD demo page testing5!',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: ThemeSpacing.l),
