@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-#          token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
       - name: 🏷️🧪 Get latest Prod release
         id: get_latest_prod_release
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -28,7 +27,8 @@ jobs:
           fallback: 0.0.1
       - name: ⚙️ Prepare semantic release configuration
         run: |
-          mv .releaserc.prod.json .releaserc.json
+          cp .releaserc.prod.json .temp.json
+          mv .temp.json .releaserc.json
       - name: 🏷️✍️ Create new Prod release tag
         id: semantic_release_info
         uses: cycjimmy/semantic-release-action@v3.2.0
@@ -46,7 +46,7 @@ jobs:
       - name: 🔀 Push bump commit with changelog to repository
         uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
-          commit_message: "chore(*): bump to version ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }} [skip ci]"
+          commit_message: "Bump to version ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }} [skip ci]"
       - name: 🏷️✍️ Create new Prod release tag
         uses: rickstaa/action-create-tag@v1
         with:
