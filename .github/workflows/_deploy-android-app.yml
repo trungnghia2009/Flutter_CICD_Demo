@@ -88,5 +88,5 @@ jobs:
       - name: 𝌚 Push APK/ABB file to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.workspace }}/app/build/app/outputs/flutter-apk/app-${{ inputs.flavor }}-debug.apk, ${{ github.workspace }}/app/build/app/outputs/bundle/${{ inputs.flavor }}Release/app-${{ inputs.flavor }}-release.aab"
+          artifacts: "${{ github.workspace }}/app/build/app/outputs/flutter-apk/app-${{ inputs.flavor }}-release.apk, ${{ github.workspace }}/app/build/app/outputs/bundle/${{ inputs.flavor }}Release/app-${{ inputs.flavor }}-release.aab"
           tag: 'release/${{ inputs.flavor }}/${{ inputs.new-pubspec-version }}'
