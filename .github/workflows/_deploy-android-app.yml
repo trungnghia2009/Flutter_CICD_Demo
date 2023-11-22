@@ -81,7 +81,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: '${{ github.workspace }}/app/build/app/outputs/bundle/${{ inputs.flavor }}Release/app-${{ inputs.flavor }}-release.aab'
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
 #      - name: 🤖🚀 Upload Android ${{ inputs.short-environment-name }} Release to Play Store
 #        uses: r0adkll/upload-google-play@v1.0.19
 #        with:
