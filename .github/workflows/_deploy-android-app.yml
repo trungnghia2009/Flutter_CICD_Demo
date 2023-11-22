@@ -72,7 +72,7 @@ jobs:
         run: |
           pushd app
           mkdir debug-symbols
-          flutter build apk
+          flutter build apk \
             --debug \
             --flavor ${{ inputs.flavor }} \
             --target lib/main_${{ inputs.flavor }}.dart
@@ -96,53 +96,3 @@ jobs:
         with:
           artifacts: '${{ github.workspace }}/app/build/app/outputs/bundle/${{ inputs.flavor }}Release/app-${{ inputs.flavor }}-release.aab'
           tag: 'release/${{ inputs.flavor }}/${{ inputs.new-pubspec-version }}'
-#      - name: 🤖🚀 Upload Android ${{ inputs.short-environment-name }} Release to Play Store
-#        uses: r0adkll/upload-google-play@v1.0.19
-#        with:
-#          packageName: ${{ inputs.package-name }}
-#          track: internal
-#          status: ${{ inputs.release-status }}
-#          releaseFiles: ${{ github.workspace }}/app/build/app/outputs/bundle/${{ inputs.flavor }}Release/app-${{ inputs.flavor }}-release.aab
-#          serviceAccountJsonPlainText: "${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_JSON }}"
-#      - name: 💬 Pick a random success catchphrase
-#        if: success()
-#        id: success_catchphrase
-#        run: |
-#          sentences=('🤩 AMAZING !' 'Woop woop 🎉' 'Oh wow 😮' '😎 Yeahhhh !' '📣 Amazing announcement !' '📢 Your attention please...' '👏 Great work !' '🍾 Champagne !' '🙌 High five !' '🥳 Time to celebrate !')
-#          arrayLength=${#sentences[@]}
-#          randomNumber=$(($RANDOM%$arrayLength))
-#          pickedSentence=${sentences[$randomNumber]}
-#          echo "picked_sentence=$pickedSentence" >> $GITHUB_OUTPUT
-#      - name: 🔔✅ Send success notif to Discord
-#        if: success()
-#        uses: sarisia/actions-status-discord@v1
-#        with:
-#          webhook: ${{ secrets.DISCORD_DEPLOYMENT_WEBHOOK_URL }}
-#          avatar_url: ${{ secrets.DISCORD_DEPLOYMENT_WEBHOOK_AVATAR }}
-#          username: "${{ inputs.short-environment-name }} notifier"
-#          content: "${{ steps.success_catchphrase.outputs.picked_sentence }}"
-#          title: "🤖 New version of ${{ inputs.environment-name }} app available !"
-#          description: |
-#            Version `${{ inputs.new-pubspec-version }}`
-#            Click [here](${{ inputs.environment-url }}) to download
-#          url: ${{ inputs.environment-url }}
-#          nofail: true
-#          nodetail: true
-#      - name: 🔔❌ Send failure notif to Discord
-#        if: failure()
-#        uses: sarisia/actions-status-discord@v1
-#        env:
-#          RUN_URL: "https://github.com/orevial/flutter-ci-cd-demo/actions/runs/${{ github.run_id }}"
-#        with:
-#          webhook: ${{ secrets.DISCORD_BUILD_WEBHOOK_URL }}
-#          avatar_url: ${{ secrets.DISCORD_DEPLOYMENT_WEBHOOK_AVATAR }}
-#          username: "${{ inputs.short-environment-name }} notifier"
-#          content: "Oh no 😢"
-#          title: "🤖 Release of ${{ inputs.environment-name }} app has failed..."
-#          description: |
-#            Failed job: 🍏📦🚀 Build & deploy iOS ${{ inputs.short-environment-name }} release
-#            Failed to release version `${{ inputs.new-pubspec-version }}` of ${{ inputs.environment-name }} app
-#            Click [here](${{ env.RUN_URL }}) to go to failed run output
-#          url: ${{ env.RUN_URL }}
-#          nofail: true
-#          nodetail: true
