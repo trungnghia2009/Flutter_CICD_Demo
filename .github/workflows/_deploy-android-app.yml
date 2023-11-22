@@ -73,7 +73,7 @@ jobs:
           pushd app
           mkdir debug-symbols
           flutter build apk \
-            --debug \
+            --release \
             --flavor ${{ inputs.flavor }} \
             --target lib/main_${{ inputs.flavor }}.dart
           popd
