@@ -80,7 +80,6 @@ jobs:
       - name: 🤖📦 Create Android ${{ inputs.short-environment-name }} appbundle release
         run: |
           pushd app
-          mkdir debug-symbols
           flutter build appbundle \
             --release \
             --flavor ${{ inputs.flavor }} \
