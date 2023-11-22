@@ -15,6 +15,7 @@ class FlutterDemo extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter CI/CD demo app',
       theme: lightTheme,
+      debugShowCheckedModeBanner: false,
       home: HomePage(env: env),
     );
   }
