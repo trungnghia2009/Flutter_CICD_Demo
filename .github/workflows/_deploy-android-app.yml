@@ -68,6 +68,15 @@ jobs:
         uses: bluefireteam/melos-action@v2
       - name: ⚙️ Install dependencies for all packages
         run: melos build:pub_get:all
+      - name: 🤖📦 Create Android ${{ inputs.short-environment-name }} apk release
+        run: |
+          pushd app
+          mkdir debug-symbols
+          flutter build apk
+            --debug \
+            --flavor ${{ inputs.flavor }} \
+            --target lib/main_${{ inputs.flavor }}.dart
+          popd
       - name: 🤖📦 Create Android ${{ inputs.short-environment-name }} appbundle release
         run: |
           pushd app
@@ -77,6 +86,11 @@ jobs:
             --flavor ${{ inputs.flavor }} \
             --target lib/main_${{ inputs.flavor }}.dart
           popd
+      - name: 𝌚 Push APK file to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: '${{ github.workspace }}/app/build/app/outputs/flutter-apk/app-${{ inputs.flavor }}-debug.apk'
+          tag: 'release/${{ inputs.flavor }}/${{ inputs.new-pubspec-version }}'
       - name: 𝌚 Push AAB file to Releases
         uses: ncipollo/release-action@v1
         with:
